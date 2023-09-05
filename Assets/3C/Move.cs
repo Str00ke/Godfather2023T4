@@ -8,7 +8,7 @@ public class Move : MonoBehaviour
 
     float z;
 
-    
+    public bool IsMoving { get; private set; }
     enum MoveState
     {
         WASD,
@@ -34,7 +34,8 @@ public class Move : MonoBehaviour
             v = Input.GetAxis("Vertical2");
         }
 
-
-        transform.Translate(new Vector3(h, v, 0) * Time.deltaTime * 5);
+        Vector3 fV = new Vector3(h, v, 0);
+        transform.Translate(fV * Time.deltaTime * 5);
+        IsMoving = fV.magnitude > 0.0f;
     }
 }

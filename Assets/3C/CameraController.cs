@@ -45,7 +45,6 @@ public class CameraController : MonoBehaviour
         cam.transform.position = v;
         float magV = Vector3.Magnitude(v);
 
-        Debug.Log(magV);
 
         if(magV > prevMag && magV > minClampCache && magV > maxClampCache)
         {

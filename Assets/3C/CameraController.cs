@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (p1.IsMoving || p2.IsMoving) OnMove();
+        //if (p1.IsMoving || p2.IsMoving) OnMove();
     }
 
     private void OnMove()

@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6831700315864462126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2458122370909065114}
+  - component: {fileID: 7640774389288336063}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2458122370909065114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6831700315864462126}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2565303, y: 9.284228, z: 3.2106524}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7640774389288336063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6831700315864462126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea715828f7b31740bb8098f43597797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  J1CenterJS:
+    analog: {x: 0, y: 0}
+    analogHor: Horizontal
+    analogVert: Vertical
+    topBtn: 8
+    sideBtn: 8
+  J1SideJS:
+    analog: {x: 0, y: 0}
+    analogHor: 
+    analogVert: 
+    topBtn: 0
+    sideBtn: 0
+  J2CenterJS:
+    analog: {x: 0, y: 0}
+    analogHor: Horizontal2
+    analogVert: Vertical2
+    topBtn: 8
+    sideBtn: 8
+  J2SideJS:
+    analog: {x: 0, y: 0}
+    analogHor: 
+    analogVert: 
+    topBtn: 0
+    sideBtn: 0
+  CenterBtn: 8
+  quadBtnR: 8
+  quadBtnG: 127
+  quadBtnB: 270
+  quadBtnY: 271
+  sixBtnTL: 281
+  sixBtnTM: 281
+  sixBtnTR: 282
+  sixBtnBL: 283
+  sixBtnBM: 284
+  sixBtnBR: 285
+  sidesBtnRed: 283
+  sidesBtnToBlue: 284

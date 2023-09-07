@@ -23,6 +23,6 @@ public class ScoreGoal : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "Goal : " + gameplayManagerScript.getScore().ToString() + " / " + gameplayManagerScript.getGoal();
+        scoreText.text = "Cow Caught Goal : " + gameplayManagerScript.getScoreCaught().ToString() + " / " + gameplayManagerScript.getGoalCaught() + " \n Or \n Alien Cow Shot : " + gameplayManagerScript.getScoreAlienShot() + " / " + gameplayManagerScript.getGoalAlienShot();
     }
 }

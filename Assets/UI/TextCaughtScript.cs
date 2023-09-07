@@ -21,6 +21,6 @@ public class TextCaughtScript : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "Cow Caught Goal:`\n" + gameplayManagerScript.getScoreCaught().ToString() + " / " + gameplayManagerScript.getGoalCaught();
+        scoreText.text = "Cow Caught Goal:`\n" + gameplayManagerScript.GetScoreCaught().ToString() + " / " + gameplayManagerScript.GetGoalCaught();
     }
 }

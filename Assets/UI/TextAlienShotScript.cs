@@ -20,6 +20,6 @@ public class TextAlienShotScript : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "Alien Cow Shot Goal:`\n" + gameplayManagerScript.getScoreAlienShot().ToString() + " / " + gameplayManagerScript.getGoalAlienShot();
+        scoreText.text = "Alien Cow Shot Goal:`\n" + gameplayManagerScript.GetScoreAlienShot().ToString() + " / " + gameplayManagerScript.GetGoalAlienShot();
     }
 }

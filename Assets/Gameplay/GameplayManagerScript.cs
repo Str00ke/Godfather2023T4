@@ -98,11 +98,15 @@ public class GameplayManagerScript : MonoBehaviour
         }
     }
 
-    public int getGoalCaught(){
+    public float GetTimeRemaining(){
+        return timer;
+    }
+
+    public int GetGoalCaught(){
         return goalCaught;
     }
 
-    public int getScoreCaught(){
+    public int GetScoreCaught(){
         return scoreCaught;
     }
     
@@ -115,11 +119,11 @@ public class GameplayManagerScript : MonoBehaviour
         scoreCaught = 0;
     }
 
-    public int getGoalAlienShot(){
+    public int GetGoalAlienShot(){
         return goalAlienShot;
     }
 
-    public int getScoreAlienShot(){
+    public int GetScoreAlienShot(){
         return scoreAlienShot;
     }
     

@@ -5,10 +5,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class ScoreGoal : MonoBehaviour
+public class TextCaughtScript : MonoBehaviour
 {
-    public bool isPlayerA; //whether to show P1 or P2
-
     public Text scoreText;
 
     public GameObject gameplayManager;
@@ -16,13 +14,13 @@ public class ScoreGoal : MonoBehaviour
 
     void Start()
     {   
-        scoreText.text = "Goal : 0 / 0";  
+        scoreText.text = "Cow Caught Goal: 0 / 0";  
 
         gameplayManagerScript = gameplayManager.GetComponent<GameplayManagerScript>();
     }
 
     void Update()
     {
-        scoreText.text = "Cow Caught Goal : " + gameplayManagerScript.getScoreCaught().ToString() + " / " + gameplayManagerScript.getGoalCaught() + " \n Or \n Alien Cow Shot : " + gameplayManagerScript.getScoreAlienShot() + " / " + gameplayManagerScript.getGoalAlienShot();
+        scoreText.text = "Cow Caught Goal:`\n" + gameplayManagerScript.getScoreCaught().ToString() + " / " + gameplayManagerScript.getGoalCaught();
     }
 }

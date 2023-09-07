@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Move : MonoBehaviour
@@ -12,13 +13,24 @@ public class Move : MonoBehaviour
 
     bool isGrap = false;
 
+    bool isLocked = false;
+    float lockTimer = 0.0f;
+
     [SerializeField] GameObject Grap;
     [SerializeField] Transform GrapHolder;
+    [SerializeField] RopeControllerSimple ropeController;
     float grapHolderY;
 
     [SerializeField] float grapSpeed;
     [SerializeField] AnimationCurve grapDescendAnim;
     [SerializeField] AnimationCurve grapAscendAnim;
+
+    [SerializeField] Sprite openClaw;
+    [SerializeField] Sprite closedClaw;
+    [SerializeField] Sprite stuckClaw;
+
+    SpriteRenderer sr;
+
     public bool IsMoving { get; private set; }
     enum MoveState
     {
@@ -30,7 +42,9 @@ public class Move : MonoBehaviour
 
     private void Awake()
     {
-        
+        sr = Grap.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        sr.sprite = openClaw;
+
     }
     void Start()
     {
@@ -41,11 +55,23 @@ public class Move : MonoBehaviour
 
     void Update()
     {
+        if (isLocked)
+        {
+            lockTimer -= Time.deltaTime;
+            if(lockTimer <= 0.0f)
+            {
+                isLocked = false;
+                sr.sprite = closedClaw;
+                ropeController.SetSimu(true);
+                StartCoroutine(AscendCor(Grap.transform.position.y));
+            }
+            return;
+        }
+
         if(move == MoveState.WASD)
         {
             v = InputManager.Instance.Player1CenterJoystick.AnalogVector;
             if (Input.GetKeyDown(InputManager.Instance.Player1CenterJoystick.topBtn)) DescendGrap();
-
         }
         else if (move == MoveState.NUM)
         {
@@ -59,19 +85,28 @@ public class Move : MonoBehaviour
         if (xPrime >= map.MapLimits.max.x | xPrime <= map.MapLimits.min.x) fV.x = 0.0f;
         if (yPrime >= map.MapLimits.max.y | yPrime <= map.MapLimits.min.y) fV.y = 0.0f;
         transform.Translate(fV * Time.deltaTime * 5);
-        Vector3 grapVec = new Vector3(fV.x, 0.0f, 0.0f/*fV.y*/);
+        Vector3 grapVec = new Vector3(fV.x, 0.0f, fV.y);
         GrapHolder.transform.Translate(grapVec * Time.deltaTime * 5);    
         IsMoving = fV.magnitude > 0.0f;
-
         float s = map.GetMinMaxScale(transform.position.y);
         transform.localScale = new Vector3(s, s, s);
         //Grap.transform.localScale = new Vector3(s, s, s);
+            
+    }
+
+    public void Lock()
+    {
+        isLocked = true;
+        lockTimer = map.LockGrapTime;
+        sr.sprite = stuckClaw;
+        ropeController.SetSimu(false);
     }
 
     void DescendGrap()
     {
         if (isGrap) return;
         StartCoroutine(DescendCor());
+
     }
 
     IEnumerator DescendCor()
@@ -88,6 +123,7 @@ public class Move : MonoBehaviour
             yield return null;
         }
         yield return null;
+        sr.sprite = closedClaw;
         StartCoroutine(AscendCor(yStart));
     }
 
@@ -96,9 +132,20 @@ public class Move : MonoBehaviour
 
     }
 
+    void ComputeCow()
+    {
+        if (true)
+            StartCoroutine(AscendCor(Grap.transform.position.y));
+        else
+            Lock();
+
+
+    }
+
     IEnumerator AscendCor(float yTarget)
     {
         float t = 0.0f;
+        yTarget += 2f;
         float yStart = transform.position.y;
         while (t < 1.0f)
         {
@@ -108,6 +155,7 @@ public class Move : MonoBehaviour
             yield return null;
         }
         isGrap = false;
+        sr.sprite = openClaw;
         yield return null;
     }
 

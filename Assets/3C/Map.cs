@@ -8,6 +8,9 @@ public class Map : MonoBehaviour
 
     [SerializeField] float maxScaleClamp;
     [SerializeField] float minScaleClamp;
+    [SerializeField] float lockGrapTime;
+
+    public float LockGrapTime => lockGrapTime;
 
     float yMin;
     float yMax;
@@ -19,7 +22,7 @@ public class Map : MonoBehaviour
 
     private void Awake()
     {
-        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        EdgeCollider2D box = GetComponent<EdgeCollider2D>();
         maxMapLimits = box.bounds;
         yMin = maxMapLimits.min.y;
         yMax = maxMapLimits.max.y;

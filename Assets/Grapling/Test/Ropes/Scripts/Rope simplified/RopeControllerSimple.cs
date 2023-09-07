@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.XR;
 using UnityEngine;
 
 //If we have a stiff rope, such as a metal wire, then we need a simplified solution
@@ -9,6 +10,7 @@ public class RopeControllerSimple : MonoBehaviour
     //Objects that will interact with the rope
     public Transform whatTheRopeIsConnectedTo;
     public Transform whatIsHangingFromTheRope;
+    Transform whatIsHangingFromTheRopeCache;
 
     //Line renderer used to display the rope
     public LineRenderer lineRenderer;
@@ -36,12 +38,12 @@ public class RopeControllerSimple : MonoBehaviour
     //The joint we use to approximate the rope
     SpringJoint springJoint;
 
-
+    public bool isSimulate = true;
 
     void Start() 
 	{
         springJoint = whatTheRopeIsConnectedTo.GetComponent<SpringJoint>();
-
+        whatIsHangingFromTheRopeCache = whatIsHangingFromTheRope;
         //Init the line renderer we use to display the rope
         //lineRenderer = GetComponent<LineRenderer>();
 
@@ -51,8 +53,23 @@ public class RopeControllerSimple : MonoBehaviour
         //Add the weight to what the rope is carrying
         whatIsHangingFromTheRope.GetComponent<Rigidbody>().mass = loadMass;
     }
-	
-	
+
+    public void SetSimu(bool val)
+    {
+        isSimulate = val;
+        if (!val)
+        {
+            springJoint.connectedBody = null;
+            whatIsHangingFromTheRope.GetComponent<Rigidbody>().useGravity = false;
+            whatIsHangingFromTheRope.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        }
+        else
+        {
+            springJoint.connectedBody = whatIsHangingFromTheRopeCache.GetComponent<Rigidbody>();
+            whatIsHangingFromTheRope.GetComponent<Rigidbody>().useGravity = true;
+            whatIsHangingFromTheRope.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        }
+    }
 
 	void Update() 
 	{
@@ -60,7 +77,8 @@ public class RopeControllerSimple : MonoBehaviour
         //UpdateWinch();
 
         //Display the rope with a line renderer
-        DisplayRope();
+        if (isSimulate)
+            DisplayRope();
     }
 
 

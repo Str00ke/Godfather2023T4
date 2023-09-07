@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 6383024362530197507}
   - component: {fileID: 3091161337863588126}
   m_Layer: 0
-  m_Name: CowParent
+  m_Name: RegularCow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   self: {fileID: 6757557855203818011}
-  cowChild: {fileID: 2221551900408251583}
+  gameplayManager: {fileID: 0}
   speed: 0.0008
   boundUpLeft: {x: -1, y: -0.5}
   boundDownRight: {x: 1, y: 0.5}

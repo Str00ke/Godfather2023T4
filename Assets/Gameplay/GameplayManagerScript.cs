@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class GameplayManagerScript : MonoBehaviour
 {
-    public int goalCaught;
-    public int goalAlienShot;
-    public int defeatCowDied;
+    public int goalCaught; //reach goal -> player wins
+    public int goalAlienShot; //reach goal -> player wins
+    public int defeatCowDied; //reach defeat -> player loses
 
     public float timer; //runs out -> player looses
 

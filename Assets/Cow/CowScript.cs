@@ -6,7 +6,8 @@ using Random = UnityEngine.Random;
 public class CowScript : MonoBehaviour
 {
     public GameObject self;
-    public GameObject cowChild;
+    public GameObject gameplayManager;
+    protected GameplayManagerScript gameplayManagerScript;
 
     private Vector3 target = Vector3.zero; //cow follow target
 
@@ -26,6 +27,8 @@ public class CowScript : MonoBehaviour
     void Start()
     {
         target = new Vector3(Random.Range(boundUpLeft.x, boundDownRight.x), Random.Range(boundUpLeft.y, boundDownRight.y));
+
+        gameplayManagerScript = gameplayManager.GetComponent<GameplayManagerScript>();
     }
 
     void Update()
@@ -51,5 +54,9 @@ public class CowScript : MonoBehaviour
         else if (sleepingTimer > 0){
             sleepingTimer = Math.Max(0, sleepingTimer - Time.deltaTime);
         }
+    }
+
+    public virtual void Shot(){
+        gameplayManagerScript.AddPointAlienShot(1);
     }
 }

@@ -48,25 +48,25 @@ MonoBehaviour:
     analog: {x: 0, y: 0}
     analogHor: Horizontal
     analogVert: Vertical
-    topBtn: 8
+    topBtn: 306
     sideBtn: 8
   J1SideJS:
     analog: {x: 0, y: 0}
     analogHor: 
     analogVert: 
-    topBtn: 0
+    topBtn: 256
     sideBtn: 0
   J2CenterJS:
     analog: {x: 0, y: 0}
     analogHor: Horizontal2
     analogVert: Vertical2
-    topBtn: 8
+    topBtn: 32
     sideBtn: 8
   J2SideJS:
     analog: {x: 0, y: 0}
     analogHor: 
     analogVert: 
-    topBtn: 0
+    topBtn: 257
     sideBtn: 0
   CenterBtn: 8
   quadBtnR: 8

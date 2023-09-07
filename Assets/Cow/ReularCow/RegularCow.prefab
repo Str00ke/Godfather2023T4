@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 3664084232780126032}
   - component: {fileID: 5009349655725386530}
   - component: {fileID: 6383024362530197507}
-  - component: {fileID: 3091161337863588126}
+  - component: {fileID: 277983684744159431}
   m_Layer: 0
-  m_Name: CowParent
+  m_Name: RegularCow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,7 +234,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3091161337863588126
+--- !u!114 &277983684744159431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,15 +243,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6757557855203818011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c5f3d26a0e01e4f87c71cbf1cc6277, type: 3}
+  m_Script: {fileID: 11500000, guid: f647ed46465f4844db10c5a9eeaa6834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   self: {fileID: 6757557855203818011}
   cowChild: {fileID: 2221551900408251583}
+  gameplayManager: {fileID: 0}
   speed: 0.01
-  boundUpLeft: {x: -1, y: -0.5}
-  boundDownRight: {x: 1, y: 0.5}
+  boundUpLeft: {x: 0, y: 0}
+  boundDownRight: {x: 0, y: 0}
   sleepingBoundLow: 2
   sleepingBoundHigh: 5
   IsPicked: 0
   cowType: 0
+  OnShot:
+    m_PersistentCalls:
+      m_Calls: []

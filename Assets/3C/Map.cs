@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Map : MonoBehaviour
 {
@@ -40,7 +41,11 @@ public class Map : MonoBehaviour
     [SerializeField] List<CowSprite> cowSprites = new List<CowSprite>();
     [SerializeField] GameObject cowPrefab;
 
-
+    public UnityEvent OnAlienShot;
+    public UnityEvent OnNormalShot;
+    public UnityEvent OnGoldenShot;
+    public UnityEvent OnToxicShot;
+    public UnityEvent OnMaladeShot;
     public void InitLevel()
     {
         for (int i = 0; i < levels.Count; i++)
@@ -147,6 +152,8 @@ public class Map : MonoBehaviour
                 currLevelData.goalData[i] = cd;
             }
         }
+
+        
 
         bool check = true;
         for (int i = 0; i < currLevelData.goalData.Count; i++)

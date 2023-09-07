@@ -37,6 +37,7 @@ public class GameplayManagerScript : MonoBehaviour
 
     void Update()
     {
+        return;
         if(scoreCaught >= goalCaught || scoreAlienShot >= goalAlienShot){
             //TODO: trigger win sequence
 

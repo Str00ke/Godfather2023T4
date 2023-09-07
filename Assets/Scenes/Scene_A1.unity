@@ -807,10 +807,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a929c7318157a0943a8e1e812f2ae4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabRegularCow: {fileID: 6757557855203818011, guid: bed560da83ed9694fa918a5d5f24f83f, type: 3}
+  prefabGoldenCow: {fileID: 6757557855203818011, guid: 949c14d0ab32e25479a2d16365d02539, type: 3}
+  prefabAlienCow: {fileID: 6757557855203818011, guid: b655ab8c69f5bc445bb407e797492f06, type: 3}
   goalCaught: 10
   goalAlienShot: 33
   defeatCowDied: 0
   timer: 20
+  timerSpawn: 5
+  boundUpLeft: {x: -1, y: -0.5}
+  boundDownRight: {x: 1, y: 0.5}
+  sleepingBoundLow: 3
+  sleepingBoundHigh: 6
 --- !u!1 &1704729531
 GameObject:
   m_ObjectHideFlags: 0

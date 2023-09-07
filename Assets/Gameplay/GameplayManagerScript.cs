@@ -84,6 +84,18 @@ public class GameplayManagerScript : MonoBehaviour
         
             timerSpawn = Random.Range(sleepingBoundLow, sleepingBoundHigh);
         }
+
+        if(Input.GetKeyDown(KeyCode.Z)){
+            scoreCaught++;
+        }
+
+        if(Input.GetKeyDown(KeyCode.X)){
+            scoreAlienShot++;
+        }
+
+        if(Input.GetKeyDown(KeyCode.C)){
+            ScoreCowDead++;
+        }
     }
 
     public int getGoalCaught(){

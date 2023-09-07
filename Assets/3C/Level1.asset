@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   levelNbr: 0
-  totalTimeInSeconds: 0
-  spawnData: []
-  goalData: []
+  totalTimeInSeconds: 2
+  spawnData:
+  - type: 4
+    tot: 50
+  - type: 0
+    tot: 1
+  goalData:
+  - type: 0
+    tot: 1

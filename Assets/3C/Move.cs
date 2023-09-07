@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Move : MonoBehaviour
@@ -14,7 +15,7 @@ public class Move : MonoBehaviour
     bool isGrap = false;
 
     bool isLocked = false;
-    float lockTimer = 0.0f;
+    float lockTimer = 5.0f;
 
     [SerializeField] GameObject Grap;
     [SerializeField] Transform GrapHolder;
@@ -30,6 +31,9 @@ public class Move : MonoBehaviour
     [SerializeField] Sprite stuckClaw;
 
     SpriteRenderer sr;
+
+    GameObject targetCow;
+    GameObject pickedCow;
 
     public bool IsMoving { get; private set; }
     enum MoveState
@@ -58,8 +62,12 @@ public class Move : MonoBehaviour
         if (isLocked)
         {
             lockTimer -= Time.deltaTime;
-            if(lockTimer <= 0.0f)
+            Debug.Log(lockTimer);
+
+            if (lockTimer <= 0.0f)
             {
+                Debug.Log("Here");
+
                 isLocked = false;
                 sr.sprite = closedClaw;
                 ropeController.SetSimu(true);
@@ -91,7 +99,36 @@ public class Move : MonoBehaviour
         float s = map.GetMinMaxScale(transform.position.y);
         transform.localScale = new Vector3(s, s, s);
         //Grap.transform.localScale = new Vector3(s, s, s);
-            
+
+        //         var cows = Physics2D.OverlapCircleAll(transform.position, 0.25f);
+        //         if(targetCow != null)
+        //         {
+        //             bool check = false;
+        //             foreach (var cow in cows)
+        //             {
+        //                 if (cow.gameObject == targetCow.gameObject)
+        //                 {
+        //                     check = true;
+        //                     break;
+        //                 }
+        //             }
+        //             if (!check)
+        //             {
+        //                 targetCow.GetComponent<CowScript>().SetTarget(false);
+        //                 targetCow = null;
+        //             }
+        //             else return;
+        //         }
+        //        
+        //         foreach (var cow in cows)
+        //         {
+        //             if (cow.TryGetComponent<CowScript>(out CowScript comp))
+        //             {
+        //                 targetCow = cow.gameObject;
+        //                 comp.SetTarget(true);
+        //             }
+        //         }
+
     }
 
     public void Lock()
@@ -100,6 +137,7 @@ public class Move : MonoBehaviour
         lockTimer = map.LockGrapTime;
         sr.sprite = stuckClaw;
         ropeController.SetSimu(false);
+        Destroy(pickedCow);
     }
 
     void DescendGrap()
@@ -124,22 +162,33 @@ public class Move : MonoBehaviour
         }
         yield return null;
         sr.sprite = closedClaw;
-        StartCoroutine(AscendCor(yStart));
+        Collider2D[] Cows = Physics2D.OverlapCircleAll(transform.position, 0.25f);
+        if (Cows.Length > 0)
+        {
+            foreach (var cow in Cows)
+                if (cow.TryGetComponent<CowScript>(out CowScript comp))
+                {
+                    pickedCow = cow.gameObject;
+                    comp.IsPicked = true;
+                }
+        }
+        if (pickedCow != null)
+            ComputeCow(yStart);
+        else
+            StartCoroutine(AscendCor(yStart));
     }
 
-    void AscendGrap(float yTarget)
-    {
 
-    }
 
-    void ComputeCow()
+    void ComputeCow(float yTarget)
     {
-        if (true)
-            StartCoroutine(AscendCor(Grap.transform.position.y));
+        CowScript cow = pickedCow.GetComponent<CowScript>();
+        if (cow.cowType != CowType.TOXIQUE)
+            StartCoroutine(AscendCor(yTarget));
         else
             Lock();
 
-
+        map.AddCowToGoals(cow.cowType);
     }
 
     IEnumerator AscendCor(float yTarget)
@@ -152,11 +201,23 @@ public class Move : MonoBehaviour
             float fY = Mathf.Lerp(yStart, yTarget, grapAscendAnim.Evaluate(t));
             Grap.transform.position = new Vector3(Grap.transform.position.x, fY, Grap.transform.position.z);
             t += Time.deltaTime * grapSpeed;
+            if (pickedCow != null)
+                pickedCow.transform.position = Grap.transform.position;
             yield return null;
         }
         isGrap = false;
         sr.sprite = openClaw;
+        if (pickedCow != null)
+        {
+            Destroy(pickedCow);
+            pickedCow = null;
+        }
         yield return null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 0.25f);
     }
 
 }

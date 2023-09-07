@@ -13,7 +13,7 @@ public class LevelData : ScriptableObject
     }
     public int levelNbr;
     public float totalTimeInSeconds;
-    public List<CowData> spawnData;
-    public List<CowData> goalData;
+    public List<CowData> spawnData = new();
+    public List<CowData> goalData = new();
         
 }

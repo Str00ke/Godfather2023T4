@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: be486d54391e4c1428153f2d43e538c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -201,12 +201,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.17147213}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 2.1264815
 --- !u!50 &6383024362530197507
 Rigidbody2D:
   serializedVersion: 4
@@ -248,8 +248,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   self: {fileID: 6757557855203818011}
   cowChild: {fileID: 2221551900408251583}
-  speed: 0.0008
+  speed: 0.01
   boundUpLeft: {x: -1, y: -0.5}
   boundDownRight: {x: 1, y: 0.5}
   sleepingBoundLow: 2
   sleepingBoundHigh: 5
+  IsPicked: 0
+  cowType: 0

@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
+    static public Map Instance { get; private set; }
+
     Bounds maxMapLimits;
 
     [SerializeField] float maxScaleClamp;
     [SerializeField] float minScaleClamp;
     [SerializeField] float lockGrapTime;
-    [SerializeField] List<LevelData> levels;
-
+    [SerializeField] List<LevelData> levels = new List<LevelData>();
+    [SerializeField] List<Transform> spawnPoints = new();
+    public List<Transform> SpawnPoints => spawnPoints;
     public float LockGrapTime => lockGrapTime;
 
     float yMin;
@@ -23,9 +26,20 @@ public class Map : MonoBehaviour
 
     int currLevel = 0;
     LevelData currLevelData;
-    List<float> currLevelTimersCache;
-    List<float> currLevelTimers;
-    List<GameObject> spawnedCows;
+    List<float> currLevelTimersCache = new List<float>();
+    List<float> currLevelTimers = new List<float>();
+    List<int> currLevelCowNbr = new List<int>();
+    List<GameObject> spawnedCows = new List<GameObject>();
+
+    [System.Serializable]
+    public struct CowSprite
+    {
+        public CowType type;
+        public Sprite sprite;
+    }
+    [SerializeField] List<CowSprite> cowSprites = new List<CowSprite>();
+    [SerializeField] GameObject cowPrefab;
+
 
     public void InitLevel()
     {
@@ -33,12 +47,18 @@ public class Map : MonoBehaviour
         {
             if (levels[i].levelNbr == currLevel)
             {
-                currLevelData = levels[i];
+                currLevelData = new LevelData();
+                currLevelData.spawnData = levels[i].spawnData;
+                currLevelData.goalData = levels[i].goalData;
+                currLevelData.levelNbr = levels[i].levelNbr;
+                currLevelData.totalTimeInSeconds = levels[i].totalTimeInSeconds;
                 float time = currLevelData.totalTimeInSeconds;
+
                 for (int j = 0; j < currLevelData.spawnData.Count; j++)
                 {
-                    currLevelTimersCache.Add(currLevelData.spawnData[i].tot / time);
-                    currLevelTimers.Add(currLevelData.spawnData[i].tot / time);
+                    currLevelTimersCache.Add(time / currLevelData.spawnData[j].tot);
+                    currLevelTimers.Add(time / currLevelData.spawnData[j].tot);
+                    currLevelCowNbr.Add(currLevelData.spawnData[j].tot);
                 }
                 break;
             }
@@ -47,6 +67,7 @@ public class Map : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         EdgeCollider2D box = GetComponent<EdgeCollider2D>();
         maxMapLimits = box.bounds;
         yMin = maxMapLimits.min.y;
@@ -62,12 +83,17 @@ public class Map : MonoBehaviour
     {
         for (int i = 0; i < currLevelTimers.Count; i++)
         {
-            currLevelTimers[i] -= Time.deltaTime;
-            if(currLevelTimers[i] <= 0.0f)
+            if (currLevelCowNbr[i] > 0)
             {
-                currLevelTimers[i] = currLevelTimersCache[i];
-                SpawnCow(currLevelData.spawnData[i].type);
+                currLevelTimers[i] -= Time.deltaTime;
+                if (currLevelTimers[i] <= 0.0f)
+                {
+                    currLevelTimers[i] = currLevelTimersCache[i];
+                    SpawnCow(currLevelData.spawnData[i].type);
+                    currLevelCowNbr[i] -= 1;
+                }
             }
+            
         }
         currLevelData.totalTimeInSeconds -= Time.deltaTime;
         if (currLevelData.totalTimeInSeconds <= 0.0f) LevelEndRunOutTime();
@@ -76,12 +102,22 @@ public class Map : MonoBehaviour
 
     void SpawnCow(CowType type)
     {
-        spawnedCows.Add(null);
+        Sprite spr = null;
+        Transform t = null;
+        foreach(var sprite in cowSprites)
+        {
+            if (sprite.type == type) spr = sprite.sprite;
+        }
+        int rand = Random.Range(0, spawnPoints.Count);
+        t = spawnPoints[rand];
+        GameObject cowGO = Instantiate(cowPrefab, t.position, Quaternion.identity);
+        cowGO.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = spr;
+        cowGO.GetComponent<CowScript>().cowType = type;
+        spawnedCows.Add(cowGO);
     }
 
     void LevelEndRunOutTime()
     {
-
     }
 
     void LevelEndWin()
@@ -94,14 +130,21 @@ public class Map : MonoBehaviour
         foreach(GameObject cow in spawnedCows) Destroy(cow);
     }
 
-    void AddCowToGoals(CowType type)
+    public void AddCowToGoals(CowType type)
     {
         for (int i = 0; i < currLevelData.goalData.Count; i++)
         {
             if (currLevelData.goalData[i].type == type)
             {
-                var curr = currLevelData.goalData[i];
-                curr.tot -= 1;
+                /*
+                 List<MyStruct> list = {…};  
+                 MyStruct ms = list[0];  
+                 ms.Name = "MyStruct42";  
+                 list[0] = ms;  
+                 */
+                LevelData.CowData cd = currLevelData.goalData[i];
+                cd.tot -= 1;
+                currLevelData.goalData[i] = cd;
             }
         }
 

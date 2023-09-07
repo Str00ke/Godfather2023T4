@@ -1,21 +1,34 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameplayManagerScript : MonoBehaviour
 {
+    public GameObject prefabRegularCow;
+    public GameObject prefabGoldenCow;
+    public GameObject prefabAlienCow;
+
     public int goalCaught; //reach goal -> player wins
     public int goalAlienShot; //reach goal -> player wins
     public int defeatCowDied; //reach defeat -> player loses
 
     public float timer; //runs out -> player looses
 
+    public float timerSpawn; //runs out -> spawns a cow
+
     private int scoreCaught = 0;
 
     private int scoreAlienShot = 0;
 
     private int ScoreCowDead = 0; 
+
+    //cow spawning pos parameters
+    public Vector2 boundUpLeft;
+    public Vector2 boundDownRight;
+
+    //cow spawning timer parameters
+    public float sleepingBoundLow;
+    public float sleepingBoundHigh;
 
     void Start()
     {
@@ -39,6 +52,37 @@ public class GameplayManagerScript : MonoBehaviour
             timer = -1;
 
             Debug.Log("Player loses");
+        }
+
+        if(timerSpawn > 0){
+            timerSpawn = Math.Max(timerSpawn - Time.deltaTime, 0);
+        }
+        
+        if(timerSpawn == 0){
+            int choice = Random.Range(0, 3);
+            GameObject cowChoice = prefabRegularCow;
+
+            switch(choice){
+                case 0:
+                    cowChoice = prefabRegularCow;
+                    break;
+
+                case 1:
+                    cowChoice = prefabGoldenCow;
+                    break;
+
+                case 2:
+                    cowChoice = prefabAlienCow;
+                    break;
+
+                default:
+                    Debug.Log("Invalid cow choice to spawn from GameplayManager");
+                    break;
+            }
+
+            Instantiate(cowChoice ,new Vector3(Random.Range(boundUpLeft.x, boundDownRight.x), Random.Range(boundUpLeft.y, boundDownRight.y)), Quaternion.identity);
+        
+            timerSpawn = Random.Range(sleepingBoundLow, sleepingBoundHigh);
         }
     }
 
@@ -83,7 +127,6 @@ public class GameplayManagerScript : MonoBehaviour
     public int GetCowDied(){
         return ScoreCowDead;
     }
-    
     
     public void AddCowDied(int newScore){
         ScoreCowDead += newScore;

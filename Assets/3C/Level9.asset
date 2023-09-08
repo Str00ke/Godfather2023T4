@@ -25,4 +25,6 @@ MonoBehaviour:
     tot: 10
   - type: 2
     tot: 2
-  goalData: []
+  goalData:
+  - type: 0
+    tot: 15

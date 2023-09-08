@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.UI;
 
 public class Map : MonoBehaviour
 {
@@ -25,6 +28,11 @@ public class Map : MonoBehaviour
     public float MaxScaleClamp => maxScaleClamp;
     public float MinScaleClamp => minScaleClamp;
 
+    float timeBeforeNextMinigame = 0.0f;
+    [SerializeField] float timeBeforeNextMinigameMin;
+    [SerializeField] float timeBeforeNextMinigameMax;
+    bool isPlayMiniGame = false;
+
     int currLevel = 0;
     LevelData currLevelData;
     List<float> currLevelTimersCache = new List<float>();
@@ -46,28 +54,78 @@ public class Map : MonoBehaviour
     public UnityEvent OnGoldenShot;
     public UnityEvent OnToxicShot;
     public UnityEvent OnMaladeShot;
+
+    [System.Serializable]
+    public struct CowUI
+    {
+        public Image img;
+        public Text txt;
+    }
+    [SerializeField] CowUI NormalUI;
+    [SerializeField] CowUI ToxicUI;
+    [SerializeField] CowUI SickUI;
+    [SerializeField] CowUI GoldUI;
+    [SerializeField] CowUI AlienUI;
+
+    [SerializeField] Text timeTxt;
+    List<int> currC = new();
+    List<int> maxC = new();
+
+    bool levelInProgress = false;
     public void InitLevel()
     {
+        NormalUI.txt.text = "0\n/\n0";
+        ToxicUI.txt.text = "0\n/\n0";
+        SickUI.txt.text = "0\n/\n0";
+        GoldUI.txt.text = "0\n/\n0";
+        AlienUI.txt.text = "0\n/\n0";
         for (int i = 0; i < levels.Count; i++)
         {
             if (levels[i].levelNbr == currLevel)
             {
-                currLevelData = new LevelData();
+                currLevelData = (LevelData)ScriptableObject.CreateInstance("LevelData");
                 currLevelData.spawnData = levels[i].spawnData;
                 currLevelData.goalData = levels[i].goalData;
                 currLevelData.levelNbr = levels[i].levelNbr;
                 currLevelData.totalTimeInSeconds = levels[i].totalTimeInSeconds;
                 float time = currLevelData.totalTimeInSeconds;
-
+                timeTxt.text = time.ToString();
                 for (int j = 0; j < currLevelData.spawnData.Count; j++)
                 {
                     currLevelTimersCache.Add(time / currLevelData.spawnData[j].tot);
                     currLevelTimers.Add(time / currLevelData.spawnData[j].tot);
                     currLevelCowNbr.Add(currLevelData.spawnData[j].tot);
                 }
+
+                for (int j = 0; j < currLevelData.goalData.Count; j++)
+                {
+                    switch (currLevelData.goalData[j].type)
+                    {
+                        case CowType.NORMAL:
+                            NormalUI.txt.text = "0\n/\n" + currLevelData.goalData[j].tot;
+                            break;
+                        case CowType.MALADE:
+                            SickUI.txt.text = "0\n/\n" + currLevelData.goalData[j].tot;
+                            break;
+                        case CowType.TOXIQUE:
+                            ToxicUI.txt.text = "0\n/\n" + currLevelData.goalData[j].tot;
+                            break;
+                        case CowType.OR:
+                            GoldUI.txt.text = "0\n/\n" + currLevelData.goalData[j].tot;
+                            break;
+                        case CowType.ALIEN:
+                            AlienUI.txt.text = "0\n/\n" + currLevelData.goalData[j].tot;
+                            break;
+
+                    }
+                    currC.Add(0);
+                    maxC.Add(currLevelData.goalData[j].tot);
+                }
                 break;
             }
         }
+        GetComponent<AudioSource>().Play();
+        levelInProgress = true;
     }
 
     private void Awake()
@@ -77,15 +135,27 @@ public class Map : MonoBehaviour
         maxMapLimits = box.bounds;
         yMin = maxMapLimits.min.y;
         yMax = maxMapLimits.max.y;
+        timeBeforeNextMinigame = Random.Range(timeBeforeNextMinigameMin, timeBeforeNextMinigameMax);
     }
 
     private void Start()
     {
-        InitLevel();
+       // InitLevel();
     }
 
     private void Update()
     {
+        if (!levelInProgress) return;
+        if (!isPlayMiniGame)
+        {
+            timeBeforeNextMinigame -= Time.deltaTime;
+            if (timeBeforeNextMinigame <= 0)
+            {
+                MinigameManager.Instance.GenGame();
+                isPlayMiniGame = true;
+            }
+
+        }
         for (int i = 0; i < currLevelTimers.Count; i++)
         {
             if (currLevelCowNbr[i] > 0)
@@ -101,10 +171,16 @@ public class Map : MonoBehaviour
             
         }
         currLevelData.totalTimeInSeconds -= Time.deltaTime;
+        timeTxt.text = ((int)currLevelData.totalTimeInSeconds).ToString();
         if (currLevelData.totalTimeInSeconds <= 0.0f) LevelEndRunOutTime();
 
     }
 
+    public void RestartMiniGameClock()
+    {
+        timeBeforeNextMinigame = Random.Range(timeBeforeNextMinigameMin, timeBeforeNextMinigameMax);
+        isPlayMiniGame = false;
+    }
     void SpawnCow(CowType type)
     {
         Sprite spr = null;
@@ -123,11 +199,25 @@ public class Map : MonoBehaviour
 
     void LevelEndRunOutTime()
     {
+        SceneManager.LoadScene(0);
     }
 
     void LevelEndWin()
     {
         EraseLvl();
+        levelInProgress = false;
+        if(currLevel < 10)
+            currLevel++;
+        currC.Clear();
+        maxC.Clear();
+        currLevelTimersCache.Clear();
+        currLevelTimers.Clear();
+        currLevelCowNbr.Clear();
+        spawnedCows.Clear();
+        GetComponent<AudioSource>().Stop();
+        FindObjectOfType<Alert>().Restart();
+        FindObjectOfType<MinigameManager>().Cancel();
+        Destroy(currLevelData);
     }
 
     void EraseLvl()
@@ -147,9 +237,30 @@ public class Map : MonoBehaviour
                  ms.Name = "MyStruct42";  
                  list[0] = ms;  
                  */
-                LevelData.CowData cd = currLevelData.goalData[i];
-                cd.tot -= 1;
-                currLevelData.goalData[i] = cd;
+                int curr, tot;
+                tot = maxC[i];
+                currC[i]++;
+                curr = currC[i];
+                string txt = curr + "\n/\n" + tot;
+                switch (type)
+                {
+                    case CowType.NORMAL:
+                        NormalUI.txt.text = txt;
+                        break;
+                    case CowType.MALADE:
+                        SickUI.txt.text = txt;
+                        break;
+                    case CowType.TOXIQUE:
+                        ToxicUI.txt.text = txt;
+                        break;
+                    case CowType.OR:
+                        GoldUI.txt.text = txt;
+                        break;
+                    case CowType.ALIEN:
+                        AlienUI.txt.text = txt;
+                        break;
+
+                }
             }
         }
 
@@ -158,7 +269,7 @@ public class Map : MonoBehaviour
         bool check = true;
         for (int i = 0; i < currLevelData.goalData.Count; i++)
         {
-            if (currLevelData.goalData[i].tot > 0) check = false;
+            if (currC[i] < maxC[i]) check = false;
         }
 
         if (check) LevelEndWin();

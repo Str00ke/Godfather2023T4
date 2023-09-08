@@ -19,6 +19,16 @@ public class Alert : MonoBehaviour
     void Start()
     {
         AlertText.CrossFadeAlpha(0,0,false);
+        GetComponent<AudioSource>().Play();
+    }
+
+    public void Restart()
+    {
+        AlertText.CrossFadeAlpha(0, 0, false);
+        GetComponent<AudioSource>().Play();
+        alertLoopCurrent = 0;
+        alertLoopProgress = 0;
+        isLooping = true;
     }
 
     void Update()
@@ -38,6 +48,8 @@ public class Alert : MonoBehaviour
                 isLooping = false;
                 alertLoopCurrent = 0;
                 alertLoopProgress = 0;
+                GetComponent<AudioSource>().Stop();
+                Invoke("StartLevel", 0.5f);
             }
  
             if(alertLoopProgress == 0 && isLooping){
@@ -48,5 +60,10 @@ public class Alert : MonoBehaviour
                 alertLoopProgress += Time.deltaTime;
             }
         }
+    }
+
+    void StartLevel()
+    {
+        Map.Instance.InitLevel();
     }
 }

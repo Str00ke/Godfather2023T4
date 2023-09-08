@@ -31,6 +31,14 @@ public class MenuManager : MonoBehaviour
             p2Text.text = "Ready!";
         }
 
-        if (p1R && p2R) SceneManager.LoadScene("3C");
+        if (p1R && p2R)
+        {
+            Invoke("StartGame", 0.5f);
+        }
+    }
+
+    void StartGame()
+    {
+        SceneManager.LoadScene("Test3C");
     }
 }

@@ -41,7 +41,7 @@ public class GameplayManagerScript : MonoBehaviour
         if(scoreCaught >= goalCaught || scoreAlienShot >= goalAlienShot){
             //TODO: trigger win sequence
 
-            Debug.Log("Player wins");
+            //Debug.Log("Player wins");
         }
 
         if(timer > 0){
@@ -52,7 +52,7 @@ public class GameplayManagerScript : MonoBehaviour
 
             timer = -1;
 
-            Debug.Log("Player loses");
+            //Debug.Log("Player loses");
         }
 
         if(timerSpawn > 0){
@@ -77,7 +77,7 @@ public class GameplayManagerScript : MonoBehaviour
                     break;
 
                 default:
-                    Debug.Log("Invalid cow choice to spawn from GameplayManager");
+                    //Debug.Log("Invalid cow choice to spawn from GameplayManager");
                     break;
             }
 

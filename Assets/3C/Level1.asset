@@ -17,26 +17,8 @@ MonoBehaviour:
   spawnData:
   - type: 0
     tot: 20
-  - type: 0
+  - type: 1
     tot: 5
   goalData:
   - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
+    tot: 10

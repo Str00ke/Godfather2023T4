@@ -23,26 +23,4 @@ MonoBehaviour:
     tot: 10
   goalData:
   - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
-  - type: 0
-    tot: 0
+    tot: 12

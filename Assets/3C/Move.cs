@@ -30,6 +30,11 @@ public class Move : MonoBehaviour
     [SerializeField] Sprite closedClaw;
     [SerializeField] Sprite stuckClaw;
 
+
+
+    [SerializeField] AudioClip descendFx;
+    [SerializeField] AudioClip ascendFx;
+
     SpriteRenderer sr;
 
     GameObject targetCow;
@@ -62,12 +67,10 @@ public class Move : MonoBehaviour
         if (isLocked)
         {
             lockTimer -= Time.deltaTime;
-            Debug.Log(lockTimer);
+            //Debug.Log(lockTimer);
 
             if (lockTimer <= 0.0f)
             {
-                Debug.Log("Here");
-
                 isLocked = false;
                 sr.sprite = closedClaw;
                 ropeController.SetSimu(true);
@@ -143,6 +146,8 @@ public class Move : MonoBehaviour
     void DescendGrap()
     {
         if (isGrap) return;
+        GetComponent<AudioSource>().clip = descendFx;
+        GetComponent<AudioSource>().Play();
         StartCoroutine(DescendCor());
 
     }
@@ -170,6 +175,7 @@ public class Move : MonoBehaviour
                 {
                     pickedCow = cow.gameObject;
                     comp.IsPicked = true;
+                    break;
                 }
         }
         if (pickedCow != null)
@@ -193,6 +199,8 @@ public class Move : MonoBehaviour
 
     IEnumerator AscendCor(float yTarget)
     {
+        GetComponent<AudioSource>().clip = ascendFx;
+        GetComponent<AudioSource>().Play();
         float t = 0.0f;
         yTarget += 2f;
         float yStart = transform.position.y;

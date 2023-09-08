@@ -128,6 +128,10 @@ public class Map : MonoBehaviour
         levelInProgress = true;
     }
 
+    public void WinMiniGame()
+    {
+        currLevelData.totalTimeInSeconds += 5f;
+    }
     private void Awake()
     {
         Instance = this;

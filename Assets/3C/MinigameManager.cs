@@ -109,6 +109,7 @@ public class MinigameManager : MonoBehaviour
         soundSource.Play();
         StartCoroutine(UfoFlyAway());
         Debug.Log("Win");
+        Map.Instance.WinMiniGame();
     }
 
     public void Cancel()

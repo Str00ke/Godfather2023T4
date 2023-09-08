@@ -73,11 +73,11 @@ MonoBehaviour:
   quadBtnG: 127
   quadBtnB: 270
   quadBtnY: 271
-  sixBtnTL: 281
-  sixBtnTM: 281
-  sixBtnTR: 282
-  sixBtnBL: 283
-  sixBtnBM: 284
-  sixBtnBR: 285
+  sixBtnTL: 119
+  sixBtnTM: 120
+  sixBtnTR: 99
+  sixBtnBL: 118
+  sixBtnBM: 98
+  sixBtnBR: 110
   sidesBtnRed: 283
   sidesBtnToBlue: 284

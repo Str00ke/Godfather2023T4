@@ -10,33 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c8c5de0299de0b49bb0364ba8e2da5e, type: 3}
-  m_Name: Level1
+  m_Name: Level6
   m_EditorClassIdentifier: 
-  levelNbr: 0
-  totalTimeInSeconds: 75
+  levelNbr: 5
+  totalTimeInSeconds: 80
   spawnData:
   - type: 0
     tot: 20
-  - type: 0
-    tot: 5
+  - type: 2
+    tot: 2
   goalData:
   - type: 0
-    tot: -1
+    tot: 0
   - type: 0
-    tot: -1
+    tot: 0
   - type: 0
-    tot: -1
+    tot: 0
   - type: 0
-    tot: -1
+    tot: 0
   - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
-  - type: 0
-    tot: -1
+    tot: 0

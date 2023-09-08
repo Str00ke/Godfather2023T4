@@ -81,13 +81,13 @@ public class Move : MonoBehaviour
 
         if(move == MoveState.WASD)
         {
-            v = InputManager.Instance.Player1CenterJoystick.AnalogVector;
-            if (Input.GetKeyDown(InputManager.Instance.Player1CenterJoystick.topBtn)) DescendGrap();
+            v = InputManager.Instance.Player1SideJoystick.AnalogVector;
+            if (Input.GetKeyDown(InputManager.Instance.Player1SideJoystick.sideBtn)) DescendGrap();
         }
         else if (move == MoveState.NUM)
         {
-            v = InputManager.Instance.Player2CenterJoystick.AnalogVector;
-            if (Input.GetKeyDown(InputManager.Instance.Player2CenterJoystick.topBtn)) DescendGrap();
+            v = InputManager.Instance.Player2SideJoystick.AnalogVector;
+            if (Input.GetKeyDown(InputManager.Instance.Player2SideJoystick.sideBtn)) DescendGrap();
         }
 
         Vector3 fV = new Vector3(v.x, v.y, 0);

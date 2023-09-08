@@ -6412,19 +6412,79 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
       propertyPath: quadBtnB
-      value: 258
+      value: 118
       objectReference: {fileID: 0}
     - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
       propertyPath: quadBtnG
-      value: 262
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
       propertyPath: quadBtnR
-      value: 264
+      value: 122
       objectReference: {fileID: 0}
     - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
       propertyPath: quadBtnY
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: sixBtnBL
+      value: 262
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: sixBtnBM
+      value: 259
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: sixBtnBR
+      value: 263
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: sixBtnTL
       value: 260
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: sixBtnTM
+      value: 261
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: sixBtnTR
+      value: 264
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: sidesBtnRed
+      value: 265
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: sidesBtnToBlue
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: J1SideJS.topBtn
+      value: 116
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: J1CenterJS.sideBtn
+      value: 104
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: J1SideJS.analogHor
+      value: HorizontalCenter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: J2CenterJS.sideBtn
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: J2SideJS.analogHor
+      value: HorizontalCenter2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: J1SideJS.analogVert
+      value: VerticalCenter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640774389288336063, guid: 5e18ebbb0d530c4409579ab1ae282446, type: 3}
+      propertyPath: J2SideJS.analogVert
+      value: VerticalCenter2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

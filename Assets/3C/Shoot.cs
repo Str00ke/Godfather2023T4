@@ -26,12 +26,12 @@ public class Shoot : MonoBehaviour
         if (move == TargetState.WASD)
         {
             v = InputManager.Instance.Player1CenterJoystick.AnalogVector;
-            if (Input.GetKeyDown(InputManager.Instance.Player1SideJoystick.topBtn)) ShootCol();
+            if (Input.GetKeyDown(InputManager.Instance.Player1CenterJoystick.topBtn)) ShootCol();
         }
         else if (move == TargetState.NUM)
         {
             v = InputManager.Instance.Player2CenterJoystick.AnalogVector;
-            if (Input.GetKeyDown(InputManager.Instance.Player2SideJoystick.topBtn)) ShootCol();
+            if (Input.GetKeyDown(InputManager.Instance.Player2CenterJoystick.topBtn)) ShootCol();
         }
 
         Vector3 fV = new Vector3(v.x, v.y, 0);

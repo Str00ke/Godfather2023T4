@@ -49,35 +49,35 @@ MonoBehaviour:
     analogHor: Horizontal
     analogVert: Vertical
     topBtn: 306
-    sideBtn: 8
+    sideBtn: 104
   J1SideJS:
     analog: {x: 0, y: 0}
-    analogHor: 
-    analogVert: 
-    topBtn: 256
+    analogHor: HorizontalCenter
+    analogVert: VerticalCenter
+    topBtn: 116
     sideBtn: 0
   J2CenterJS:
     analog: {x: 0, y: 0}
     analogHor: Horizontal2
     analogVert: Vertical2
     topBtn: 32
-    sideBtn: 8
+    sideBtn: 112
   J2SideJS:
     analog: {x: 0, y: 0}
-    analogHor: 
-    analogVert: 
+    analogHor: HorizontalCenter2
+    analogVert: VerticalCenter2
     topBtn: 257
     sideBtn: 0
   CenterBtn: 8
-  quadBtnR: 8
-  quadBtnG: 127
-  quadBtnB: 270
-  quadBtnY: 271
-  sixBtnTL: 119
-  sixBtnTM: 120
-  sixBtnTR: 99
-  sixBtnBL: 118
-  sixBtnBM: 98
-  sixBtnBR: 110
-  sidesBtnRed: 283
-  sidesBtnToBlue: 284
+  quadBtnR: 122
+  quadBtnG: 120
+  quadBtnB: 118
+  quadBtnY: 99
+  sixBtnTL: 260
+  sixBtnTM: 261
+  sixBtnTR: 264
+  sixBtnBL: 262
+  sixBtnBM: 259
+  sixBtnBR: 263
+  sidesBtnRed: 265
+  sidesBtnToBlue: 32
